@@ -55,6 +55,30 @@ public class PmdReportParse extends Builder implements SimpleBuildStep {
         this.notesAddr = notesAddr;
         this.pmdReportName = pmdReportName;
     }
+    public String getReportPath(){return reportPath;}
+
+    public String getCommand() {
+        return command;
+    }
+
+    public String getNotesAddr() {
+        return notesAddr;
+    }
+
+    public String getPmdReportName() {
+        return pmdReportName;
+    }
+
+    public String getPmdCMD() {
+        return pmdCMD;
+    }
+
+    public String getProjectPath() {
+        return projectPath;
+    }
+    public void setCommand(String command) {
+        this.command = command;
+    }
 
     @Override
     public void perform(Run<?, ?> build, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
@@ -74,10 +98,21 @@ public class PmdReportParse extends Builder implements SimpleBuildStep {
         EnvVars env = null;
         String jobName = "";
         String buildNumber = "";
-        env = build.getEnvironment(listener);
-        if(env != null){
-            jobName = env.get("JOB_NAME");
-            buildNumber = env.get("BUILD_NUMBER");
+        try {
+            env = build.getEnvironment(listener);
+            if(env != null){
+                jobName = env.get("JOB_NAME");
+                buildNumber = env.get("BUILD_NUMBER");
+            }
+            listener.getLogger().println(jobName + buildNumber);
+        } catch (IOException e) {
+            e.printStackTrace();
+            build.setResult(Result.FAILURE);
+            return;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            build.setResult(Result.FAILURE);
+            return;
         }
 //        "cmd /c e: & cd pmd-bin-5.1.0/bin & pmd -d " +
 //                "C:\\Users\\Administrator\\Desktop\\SpringBoot-vue-master\\src " +
