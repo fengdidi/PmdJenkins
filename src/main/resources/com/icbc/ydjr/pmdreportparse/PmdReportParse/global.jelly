@@ -1,0 +1,42 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <!--
+    This Jelly script is used to produce the global configuration option.
+
+    Jenkins uses a set of tag libraries to provide uniformity in forms.
+    To determine where this tag is defined, first check the namespace URI,
+    and then look under $JENKINS/views/. For example, <f:section> is defined
+    in $JENKINS/views/lib/form/section.jelly.
+
+    It's also often useful to just check other similar scripts to see what
+    tags they use. Views are always organized according to its owner class,
+    so it should be straightforward to find them.
+  -->
+  <f:section title="PMD报告发送NOTES插件">
+    <f:entry title="NOTES服务器" field="dominoServer"
+      description="NOTES服务器的IP地址">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="NOTES邮箱文件" field="dominoMailbox"
+      description="NOTES邮箱路径">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="NOTES邮箱" field="dominoUsername"
+      description="NOTES邮箱名称">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="NOTES邮箱密码" field="dominoPassword"
+      description="NOTES邮箱名称密码">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="PMD文件" field="dominoPmd"
+          description="PMD文件路径">
+          <f:textbox />
+        </f:entry>
+    <f:optionalBlock field="useProxy" title="使用代理" inline="true">
+        <f:entry title="代理地址" field="proxyUrl">
+            <f:textbox/>
+        </f:entry>
+    </f:optionalBlock>
+  </f:section>
+</j:jelly>
